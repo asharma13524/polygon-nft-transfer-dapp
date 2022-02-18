@@ -1,6 +1,8 @@
 import './App.css';
 import { useState } from 'react';
 import { ethers } from "ethers";
+import { useEtherBalance, useEthers } from '@usedapp/core';
+import { formatEther } from '@ethersproject/units';
 import Greeter from './artifacts/contracts/Greeter.sol/Greeter.json';
 
 const greeterAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
@@ -25,12 +27,11 @@ function App() {
     setCsvArray(newArray.slice(0,-1));
   }
 
-  async function requestAccount() {
-    await window.ethereum.request({ method: 'eth_requestAccounts' })
-  }
+  const { activateBrowserWallet, account } = useEthers();
+  const etherBalance = useEtherBalance(account);
+
 
   const sendNFTs = async (nftInfo) => {
-    await requestAccount()
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const contract = new ethers.Contract(greeterAddress, Greeter.abi, signer)
@@ -59,6 +60,13 @@ function App() {
 
   return (
     <div className="App">
+       <div>
+        <div>
+          <button onClick={() => activateBrowserWallet()}>Connect</button>
+        </div>
+        {account && <p>Account: {account}</p>}
+        {etherBalance && <p>Balance: {formatEther(etherBalance)}</p>}
+      </div>
       <form id='csv-form'>
         <input
           type='file'
