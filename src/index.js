@@ -8,7 +8,7 @@ import { Polygon, Config } from '@usedapp/core';
 const config: Config = {
   readOnlyChainId: Polygon.chainId,
   readOnlyUrls: {
-    [Polygon.chainId]: '',
+    [Polygon.chainId]: 'https://polygon-mumbai.g.alchemy.com/v2/NksJUWKCRZRnKFfp-llyoTcbnjLLBEyo',
   },
 }
 
