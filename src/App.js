@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { ethers } from "ethers";
 import { useEtherBalance, useEthers, useTokenBalance } from '@usedapp/core';
 import { formatEther } from '@ethersproject/units';
-import Greeter from './artifacts/contracts/Greeter.sol/Greeter.json';
+import TransferTokens from './artifacts/contracts/Greeter.sol/Greeter.json';
 
-const greeterAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
-const polygonAddress = "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"
+const TransferTokensAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
+const polygonAddress = "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619";
 
 function App() {
   const [csvFile, setCsvFile] = useState();
@@ -28,6 +28,7 @@ function App() {
     setCsvArray(newArray.slice(0,-1));
   }
 
+  // activate browser wallet
   const { activateBrowserWallet, account } = useEthers();
   const etherBalance = useEtherBalance(account);
   const polygonBalance = useTokenBalance(polygonAddress, account);
@@ -36,14 +37,10 @@ function App() {
   const sendNFTs = async (nftInfo) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
-    const contract = new ethers.Contract(greeterAddress, Greeter.abi, signer)
+    const contract = new ethers.Contract(TransferTokens, TransferTokens.abi, signer)
     const txns = [];
+    // TODO: Add logic to pass addr, nft collection to contract
     console.log(nftInfo)
-    await nftInfo.map((nft) => {
-      const transaction = contract.transferNFT({nft})
-      // txns.push(transaction)
-      // console.log(transaction)
-    })
     return txns;
   }
 
