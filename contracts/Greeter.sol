@@ -20,17 +20,4 @@ contract TransferTokens {
             require(token.transferFrom(msg.sender, address(uint160(uint256(recipients[i]))), values[i]));
         }
     }
-
-    // function transfer(uint256 _tokenId, uint addresses[], ) external payable {
-    //     uint256 price = tokenIdToPrice[_tokenId];
-    //     require(price > 0, 'This token is not for sale');
-    //     require(msg.value == price, 'Incorrect value');
-
-    //     address seller = ownerOf(_tokenId);
-    //     _transfer(seller, msg.sender, _tokenId);
-    //     tokenIdToPrice[_tokenId] = 0; // not for sale anymore
-    //     payable(seller).transfer(msg.value); // send the ETH to the seller
-
-    //     emit NftBought(seller, msg.sender, msg.value);
-    // }
 }
