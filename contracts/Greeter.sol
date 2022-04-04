@@ -8,6 +8,8 @@ interface IERC20 {
 }
 
 contract TransferTokens {
+    event Nft(address indexed reciever, uint256 itemsTransferred);
+
 
     function transferToken (IERC20 token, bytes[] memory recipients, uint256[] memory values) external {
         uint256 total = 0;
