@@ -11,7 +11,7 @@ contract TransferTokens {
     event Nft(address indexed reciever, uint256 itemsTransferred);
 
 
-    function transferToken (IERC20 token, bytes[] memory recipients, uint256[] memory values) external {
+    function transferToken (IERC1155 token, bytes[] memory recipients, uint256[] memory values) external {
         uint256 total = 0;
         for(uint256 i=0; i<recipients.length; i++) {
             total += values[i];
