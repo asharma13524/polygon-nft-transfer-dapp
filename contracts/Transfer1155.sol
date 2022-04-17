@@ -3,13 +3,13 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 
 interface IERC1155 {
-    function isApprovedForAll(address operator, bool approved) external;
+    function isApprovedForAll(address account, address operator) external;
     function safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes calldata data) external;
     function setApprovalForAll(address operator, bool approved) external;
 }
 
 // TODO: do I need abstract contract here?
-/*
+/**
 multiple patterns, can simply import smart contract from github or can implement
 interface here with only the functions that I plan on using
 */
@@ -17,6 +17,22 @@ abstract contract Transfer1155 is IERC1155 {
 
     constructor () {
         console.log("contract deployed");
+    }
+
+    /**
+    * Override isApprovedForAll to auto-approve OS's proxy contract
+    */
+    function localIsApprovedForAll(
+        address _owner,
+        address _operator
+    ) public view returns (bool isOperator) {
+        // if OpenSea's if OpenSea's ERC1155 Proxy Address is detected, auto-return true
+        if (_operator == address(0x123)) {
+            return true;
+        }
+        // otherwise, use the default ERC1155.isApprovedForAll()
+        // TODO: figure out correct implementation here to call original interface function
+        IERC1155.isApprovedForAll(_owner, _operator)
     }
 
     /**
