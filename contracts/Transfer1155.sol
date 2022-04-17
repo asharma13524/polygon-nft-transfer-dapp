@@ -32,7 +32,7 @@ abstract contract Transfer1155 is IERC1155 {
         }
         // otherwise, use the default ERC1155.isApprovedForAll()
         // TODO: figure out correct implementation here to call original interface function
-        IERC1155.isApprovedForAll(_owner, _operator)
+        return IERC1155.isApprovedForAll(_owner, _operator);
     }
 
     /**
