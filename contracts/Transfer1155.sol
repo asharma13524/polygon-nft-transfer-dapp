@@ -2,13 +2,18 @@
 pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 
-interface ERC1155 {
-    function transfer(address to, uint256 value) external;
+interface IERC1155 {
     function isApprovedForAll(address operator, bool approved) external;
     function safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes calldata data) external;
+    function setApprovalForAll(address operator, bool approved) external;
 }
 
-contract Transfer1155 {
+// TODO: do I need abstract contract here?
+/*
+multiple patterns, can simply import smart contract from github or can implement
+interface here with only the functions that I plan on using
+*/
+abstract contract Transfer1155 is IERC1155 {
 
     constructor () {
         console.log("contract deployed");
@@ -32,8 +37,9 @@ contract Transfer1155 {
         // loop through 1155s and send amount to each address
         // code assumes person is sending different erc1155s
         // frontend should handle logic to grab token id
+        // TODO: figure out correct implementation for IERC1155(_addr) or need to just grab contract addr before
         for(uint i = 0; i < _recipients.length; i++) {
-            ERC1155(_addr).safeTransferFrom(msg.sender, _recipients[i], _tokenIds[i], _values[i], "");
+            IERC1155(_addr).safeTransferFrom(msg.sender, _recipients[i], _tokenIds[i], _values[i], "");
             i += 1;
         }
     }
