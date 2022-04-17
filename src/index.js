@@ -2,20 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { DAppProvider } from '@usedapp/core';
-import { Polygon, Config } from '@usedapp/core';
+import { DAppProvider, Rinkeby } from '@usedapp/core';
+import { Polygon } from '@usedapp/core';
 
-const config: Config = {
-  readOnlyChainId: Polygon.chainId,
+const chainConfig = {
+  readOnlyChainId: Rinkeby.chainId,
   readOnlyUrls: {
-    [Polygon.chainId]: 'https://polygon-mumbai.g.alchemy.com/v2/NksJUWKCRZRnKFfp-llyoTcbnjLLBEyo',
+    [Polygon.chainId]: 'https://eth-rinkeby.alchemyapi.io/v2/K7c5PR2jtHaK2G_kpNVF7k4D8scMCCvg',
   },
 }
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <DAppProvider config={config}>
+    <DAppProvider config={chainConfig}>
       <App />
     </DAppProvider>
   </React.StrictMode>,

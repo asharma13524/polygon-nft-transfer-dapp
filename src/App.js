@@ -31,17 +31,16 @@ function App() {
   // activate browser wallet
   const { activateBrowserWallet, account } = useEthers();
   const etherBalance = useEtherBalance(account);
-  const polygonBalance = useTokenBalance(polygonAddress, account);
-
+  // const polygonBalance = useTokenBalance(polygonAddress, account);
 
   const sendNFTs = async (nftInfo) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     console.log('no')
     const contract = new ethers.Contract(Transfer1155, Transfer1155.abi, signer)
-    const txns = [];
-    const nftsSent = await contract.transfer1155()
-    return txns;
+    // need approval for all, need nft id, nft amount
+    // const nftsSent = await contract.transfer1155()
+    // return txns;
   }
 
   const processAndSendNFTs = async () => {
@@ -67,8 +66,9 @@ function App() {
           <button onClick={() => activateBrowserWallet()}>Connect</button>
         </div>
         {account && <p>Account: {account}</p>}
-        {etherBalance && <p>Balance: {formatEther(etherBalance)}</p>}
+        {etherBalance && <p>Balance: {formatEther(etherBalance)} </p>}
         {/* {polygonBalance && <p>Balance: {formatEther(polygonBalance)}</p>} */}
+
       </div>
       <form id='csv-form'>
         <input
