@@ -10,6 +10,10 @@ interface ERC1155 {
 
 contract Transfer1155 {
 
+    constructor () {
+        console.log("contract deployed");
+    }
+
     /**
     * @param _addr the erc1155 token address
     * @param _recipients address[] addresses to airdrop

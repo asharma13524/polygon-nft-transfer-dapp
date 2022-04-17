@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { ethers } from "ethers";
 import { useEtherBalance, useEthers, useTokenBalance } from '@usedapp/core';
 import { formatEther } from '@ethersproject/units';
-import TransferTokens from './artifacts/contracts/Greeter.sol/Greeter.json';
+import Transfer1155 from './artifacts/contracts/Transfer1155.sol/Transfer1155.json';
 
-const TransferTokensAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
+const Transfer1155Address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 const polygonAddress = "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619";
 
 function App() {
@@ -37,10 +37,10 @@ function App() {
   const sendNFTs = async (nftInfo) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
-    const contract = new ethers.Contract(TransferTokens, TransferTokens.abi, signer)
+    console.log('no')
+    const contract = new ethers.Contract(Transfer1155, Transfer1155.abi, signer)
     const txns = [];
-    // TODO: Add logic to pass addr, nft collection to contract
-    console.log(nftInfo)
+    const nftsSent = await contract.transfer1155()
     return txns;
   }
 
@@ -50,12 +50,13 @@ function App() {
 
     reader.onload = async function(e) {
       const text = e.target.result;
+      console.log(text)
       await processCSV(text);
     };
     await reader.readAsText(file);
 
     if(typeof window.ethereum !== 'undefined') {
-      return await sendNFTs(csvArray);
+      await sendNFTs(csvArray);
     }
   }
 
@@ -67,7 +68,7 @@ function App() {
         </div>
         {account && <p>Account: {account}</p>}
         {etherBalance && <p>Balance: {formatEther(etherBalance)}</p>}
-        {polygonBalance && <p>Balance: {formatEther(polygonBalance)}</p>}
+        {/* {polygonBalance && <p>Balance: {formatEther(polygonBalance)}</p>} */}
       </div>
       <form id='csv-form'>
         <input
@@ -92,31 +93,5 @@ function App() {
     </div>
   );
 }
-
-  // async function fetchGreeting() {
-  //   if (typeof window.ethereum !== 'undefined') {
-  //     const provider = new ethers.providers.Web3Provider(window.ethereum)
-  //     const contract = new ethers.Contract(greeterAddress, Greeter.abi, provider)
-  //     try {
-  //       const data = await contract.greet()
-  //       console.log('data: ', data)
-  //     } catch (err) {
-  //       console.log("Error: ", err)
-  //     }
-  //   }
-  // }
-
-  // async function setGreeting() {
-  //   if(!greeting) return
-  //   if(typeof window.ethereum !== 'undefined') {
-  //     await requestAccount()
-  //     const provider = new ethers.providers.Web3Provider(window.ethereum)
-  //     const signer = provider.getSigner()
-  //     const contract = new ethers.Contract(greeterAddress, Greeter.abi, signer)
-  //     const transaction = await contract.setGreeting(greeting)
-  //     await transaction.wait()
-  //     fetchGreeting()
-  //   }
-  // }
 
 export default App;
