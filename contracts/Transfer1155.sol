@@ -1,38 +1,21 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 import "hardhat/console.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
 
 interface IERC1155 {
-    function isApprovedForAll(address account, address operator) external;
-    function safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes calldata data) external;
+    // function balanceOf(address account, uint256 id) external;
+    // function balanceOfBatch(address[] calldata accounts, uint256[] calldata ids) external;
     function setApprovalForAll(address operator, bool approved) external;
+    function isApprovedForAll(address account, address operator) external view returns (bool);
+    function safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes calldata data) external;
 }
 
-// TODO: do I need abstract contract here?
-/**
-multiple patterns, can simply import smart contract from github or can implement
-interface here with only the functions that I plan on using
-*/
-abstract contract Transfer1155 is IERC1155 {
+contract Transfer1155 is Ownable {
 
     constructor () {
         console.log("contract deployed");
-    }
-
-    /**
-    * Override isApprovedForAll to auto-approve OS's proxy contract
-    */
-    function localIsApprovedForAll(
-        address _owner,
-        address _operator
-    ) public view returns (bool isOperator) {
-        // if OpenSea's if OpenSea's ERC1155 Proxy Address is detected, auto-return true
-        if (_operator == address(0x123)) {
-            return true;
-        }
-        // otherwise, use the default ERC1155.isApprovedForAll()
-        // TODO: figure out correct implementation here to call original interface function
-        return IERC1155.isApprovedForAll(_owner, _operator);
     }
 
     /**

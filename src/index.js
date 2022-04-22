@@ -8,7 +8,7 @@ import { Polygon } from '@usedapp/core';
 const chainConfig = {
   readOnlyChainId: Rinkeby.chainId,
   readOnlyUrls: {
-    [Polygon.chainId]: 'https://eth-rinkeby.alchemyapi.io/v2/K7c5PR2jtHaK2G_kpNVF7k4D8scMCCvg',
+    [Polygon.chainId]: 'https://polygon-mumbai.g.alchemy.com/v2/NksJUWKCRZRnKFfp-llyoTcbnjLLBEyo',
   },
 }
 

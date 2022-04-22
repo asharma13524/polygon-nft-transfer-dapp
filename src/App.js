@@ -5,7 +5,7 @@ import { useEtherBalance, useEthers, useTokenBalance } from '@usedapp/core';
 import { formatEther } from '@ethersproject/units';
 import Transfer1155 from './artifacts/contracts/Transfer1155.sol/Transfer1155.json';
 
-const Transfer1155Address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const Transfer1155Address = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
 const polygonAddress = "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619";
 
 function App() {
@@ -13,31 +13,31 @@ function App() {
   const [csvArray, setCsvArray] = useState([]);
 
   const processCSV = (str, delim=',') => {
-    const headers = str.slice(0, str.indexOf('\n')).split(delim);
-    const rows = str.slice(str.indexOf('\n')+1).split('\n');
-    const newArray = rows.map(row => {
+    const walletAddrs = [];
+    const nftAddrs = [];
+    const nftAmounts = [];
+    console.log(str, "STRING")
+    const rows = str.slice(str.indexOf('\n', '\r')+1).split('\n', '\r');
+    for(let row of rows){
       const values = row.split(delim);
-      const eachObj = headers.reduce((obj, header, i) => {
-        if(values[i]) {
-          obj[header] = values[i]
-        }
-        return obj;
-      }, {})
-      return eachObj;
-    })
-    setCsvArray(newArray.slice(0,-1));
-  }
+      walletAddrs.push(values[0]);
+      nftAddrs.push(values[1]);
+      nftAmounts.push(values[2])
+    }
+  csvArray.push(walletAddrs, nftAddrs, nftAmounts)
+  setCsvArray(csvArray)
+}
 
   // activate browser wallet
   const { activateBrowserWallet, account } = useEthers();
   const etherBalance = useEtherBalance(account);
-  // const polygonBalance = useTokenBalance(polygonAddress, account);
 
-  const sendNFTs = async (nftInfo) => {
+  const sendNFTs = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
-    console.log('no')
     const contract = new ethers.Contract(Transfer1155, Transfer1155.abi, signer)
+    // console.log(contract.transfer1155())
+    return 'hi'
     // need approval for all, need nft id, nft amount
     // const nftsSent = await contract.transfer1155()
     // return txns;
@@ -49,7 +49,6 @@ function App() {
 
     reader.onload = async function(e) {
       const text = e.target.result;
-      console.log(text)
       await processCSV(text);
     };
     await reader.readAsText(file);
