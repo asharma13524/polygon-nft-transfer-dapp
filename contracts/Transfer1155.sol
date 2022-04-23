@@ -38,6 +38,7 @@ contract Transfer1155 is Ownable {
         // frontend should handle logic to grab token id
         // TODO: figure out correct implementation for IERC1155(_addr) or need to just grab contract addr before
         for(uint i = 0; i < _recipients.length; i++) {
+            console.log(_addr, _recipients[i], _tokenIds[i], _values[i]);
             IERC1155(_addr).safeTransferFrom(msg.sender, _recipients[i], _tokenIds[i], _values[i], "");
             i += 1;
         }
