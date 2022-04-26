@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol";
+
 
 
 // interface IERC1155 {
@@ -13,14 +15,25 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 //     function safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes calldata data) external;
 // }
 
+contract ERC1155Tradeable {
+
+    address proxyRegistryAddress;
+    constructor (address _proxyRegistryAddress) {
+        proxyRegistryAddress = _proxyRegistryAddress
+    }
+
+}
+
 contract Transfer1155 {
+    address private _token = 0x4f9594CC599497d70c3128773d758B9f780622Cf; // 1155 nft addr
+    ERC1155 private token;
 
     constructor () {
         console.log("contract deployed");
     }
 
-    function approveTransfer(address to, bool approved) public {
-        ERC1155(to).setApprovalForAll(address(this), approved);
+    function approveTransfer(address operator, bool approved) public {
+        ERC1155(operator).setApprovalForAll(address(this), approved);
     }
 
     /**
@@ -35,6 +48,7 @@ contract Transfer1155 {
         for(uint256 i = 0; i < _recipients.length; i++) {
             total += _values[i];
         }
+        console.log(ERC1155(_addr).isApprovedForAll(msg.sender, address(this)));
         // check if user has enough nfts
         // require(ERC1155(_addr).safeTransferFrom(msg.sender, address(this), total, ""));
 
@@ -43,7 +57,8 @@ contract Transfer1155 {
         // frontend should handle logic to grab token id
         // TODO: figure out correct implementation for IERC1155(_addr) or need to just grab contract addr before
         for(uint i = 0; i < _recipients.length; i++) {
-            ERC1155(_addr).safeTransferFrom(msg.sender, _recipients[i], _tokenIds[i], _values[i], "");
+            token = ERC1155(_addr);
+            token.safeTransferFrom(msg.sender, _recipients[i], _tokenIds[i], _values[i], "");
             i += 1;
         }
     }
