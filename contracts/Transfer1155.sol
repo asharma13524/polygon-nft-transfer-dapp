@@ -29,7 +29,6 @@ import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 contract Transfer1155 {
     // address private _token = 0x4f9594CC599497d70c3128773d758B9f780622Cf; // 1155 nft addr
     IERC1155 private token;
-
     constructor () {
         console.log("contract deployed");
     }
@@ -38,12 +37,6 @@ contract Transfer1155 {
     //     IERC1155(operator).setApprovalForAll(msg.sender, approved);
     // }
 
-    /**
-    * @param _addr the erc1155 token address
-    * @param _recipients address[] addresses to airdrop
-    * @param _tokenIds uint256[] tokenIds of nfts to airdrop
-    * @param _values uint256[] number of nfts to airdrop to address
-    */
     function transfer1155 (address _addr, address[] memory _recipients, uint256[] memory _tokenIds, uint256[] memory _values) public {
         uint256 total = 0;
         // sum up total nfts user is trying to send
