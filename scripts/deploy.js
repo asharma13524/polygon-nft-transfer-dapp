@@ -13,12 +13,17 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
+  // deploy ApproveTransfer contract
+  const ApproveContractTransfer = await hre.ethers.getContractFactory("ApproveContractTransfer");
+  const approveContractTransfer = await ApproveContractTransfer.deploy();
   // We get the contract to deploy
   const Transfer1155 = await hre.ethers.getContractFactory("Transfer1155");
   const transfer1155 = await Transfer1155.deploy();
 
+  await approveContractTransfer.deployed()
   await transfer1155.deployed();
 
+  console.log("ApproveContractTransfer deployed to: ", approveContractTransfer.address);
   console.log("Transfer1155 deployed to:", transfer1155.address);
 }
 

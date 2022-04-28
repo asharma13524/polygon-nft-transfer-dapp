@@ -4,8 +4,10 @@ import { ethers } from "ethers";
 import { useEtherBalance, useEthers, useTokenBalance } from '@usedapp/core';
 import { formatEther } from '@ethersproject/units';
 import Transfer1155 from './artifacts/contracts/Transfer1155.sol/Transfer1155.json';
+import ApproveContractTransfer from './artifacts/contracts/Approve1155Transfer.sol/ApproveContractTransfer.json';
 
-const Transfer1155Address = "0x6866B4eC496f073D0A0B09Cf9fa821685010F89A";
+const Transfer1155Address = "0xfe9c00597d4408963c64b10D8706EB416FBd56d3";
+const ApproveNFTForTransferAddress = "0xD3e0bbf0bfed4e5b8b7Df89f0d163F222CEeE485";
 // const polygonAddress = "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619";
 
 function App() {
@@ -24,7 +26,6 @@ function App() {
       tokenIds.push(values[1]);
       nftAmounts.push(1)
     }
-  console.log(walletAddrs, tokenIds, nftAmounts)
   csvArray.push(walletAddrs, tokenIds, nftAmounts)
 }
 
@@ -33,14 +34,35 @@ function App() {
   const etherBalance = useEtherBalance(account);
 
   const sendNFTs = async () => {
-    const nftAddr = '0xa07e45a987f19e25176c877d98388878622623fa'
+    const nftAddr = '0x91a1A1CAE88178765e7C56d57c2b8fD9b19504Ac';
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const addr = await signer.getAddress();
-    const contract = new ethers.Contract(Transfer1155Address, Transfer1155.abi, signer);
+    const transferContract = new ethers.Contract(Transfer1155Address, Transfer1155.abi, signer);
+    const approveTransferContract = new ethers.Contract(ApproveNFTForTransferAddress, ApproveContractTransfer.abi, signer)
     // TODO: implement onReceived1155 from user and then have to transfer out to addresses
-    await contract.functions.approveTransfer(nftAddr, true)
-    await contract.functions.transfer1155(nftAddr, csvArray[0], csvArray[1], csvArray[2])
+    try {
+      await approveTransferContract.functions.approveNFTForTransfer(nftAddr, Transfer1155Address);
+    } catch (err) {
+      console.log(err);
+    }
+
+    try {
+      await approveTransferContract.functions.isApprovedForTransfer(nftAddr, Transfer1155Address);
+    } catch (err) {
+      console.log(err);
+    }
+
+    try {
+      await transferContract.functions.transfer1155(nftAddr, csvArray[0], csvArray[1], csvArray[2]);
+    } catch (err) {
+      console.log(err);
+    }
+
+
+    // approveTransferContract.on()
+
+    // console.log("TRANSFER COMPLETED");
     // need approval for all, need nft id, nft amount
     // const nftsSent = await contract.transfer1155()
     // return txns;
