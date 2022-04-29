@@ -6,36 +6,11 @@ import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol";
 import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 
-
-
-
-// interface IERC1155 {
-//     // function balanceOf(address account, uint256 id) external;
-//     // function balanceOfBatch(address[] calldata accounts, uint256[] calldata ids) external;
-//     function setApprovalForAll(address operator, bool approved) external;
-//     function isApprovedForAll(address account, address operator) external view returns (bool);
-//     function safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes calldata data) external;
-// }
-
-// contract ERC1155Tradeable {
-
-//     address proxyRegistryAddress;
-//     constructor (address _proxyRegistryAddress) {
-//         proxyRegistryAddress = _proxyRegistryAddress
-//     }
-
-// }
-
 contract Transfer1155 {
-    // address private _token = 0x4f9594CC599497d70c3128773d758B9f780622Cf; // 1155 nft addr
     IERC1155 private token;
     constructor () {
         console.log("contract deployed");
     }
-
-    // function approveTransfer(address operator, bool approved) public {
-    //     IERC1155(operator).setApprovalForAll(msg.sender, approved);
-    // }
 
     function transfer1155 (address _addr, address[] memory _recipients, uint256[] memory _tokenIds, uint256[] memory _values) public {
         uint256 total = 0;
@@ -43,7 +18,6 @@ contract Transfer1155 {
         for(uint256 i = 0; i < _recipients.length; i++) {
             total += _values[i];
         }
-        console.log(IERC1155(_addr).isApprovedForAll(msg.sender, address(this)));
         // check if user has enough nfts
         // require(ERC1155(_addr).safeTransferFrom(msg.sender, address(this), total, ""));
 

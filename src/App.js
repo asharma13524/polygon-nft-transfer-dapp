@@ -7,9 +7,9 @@ import Transfer1155 from './artifacts/contracts/Transfer1155.sol/Transfer1155.js
 import ApproveContractTransfer from './artifacts/contracts/Approve1155Transfer.sol/ApproveContractTransfer.json';
 import MintERC1155 from './artifacts/contracts/MintERC1155.sol/AirlineTokens.json';
 
-const ApproveNFTForTransferAddress = "0x9f0Abffa7e71cc10aac1c9B05212a9aD77C5CB54";
-const MintERC1155Address = "0x596425AcC25f89C66B62154BC9Df923dD67eD3dB";
-const Transfer1155Address = "0xB40419250aB49399c8f57eF1A2439B193229e6A6";
+const ApproveNFTForTransferAddress = "0xe3b6135599d2F26846d8296Fa488b48C719c98b9";
+const MintERC1155Address = "0x95D2F816ef65FEC11b656170b83F22911FfB9312";
+const Transfer1155Address = "0xD7c5C128245dD0EEc0E78691b04307f8211C9036";
 
 // const polygonAddress = "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619";
 
@@ -41,6 +41,7 @@ function App() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     // const addr = await signer.getAddress();
+    const nftContract = new ethers.Contract(nftAddr, MintERC1155.abi, signer);
     const transferContract = new ethers.Contract(Transfer1155Address, Transfer1155.abi, signer);
     const mintERC1155Contract = new ethers.Contract(MintERC1155Address, MintERC1155.abi, signer);
     const approveTransferContract = new ethers.Contract(ApproveNFTForTransferAddress, ApproveContractTransfer.abi, signer)
@@ -51,7 +52,7 @@ function App() {
     //   console.log(err);
     // }
     try {
-      await approveTransferContract.functions.approveNFTForTransfer(nftAddr, Transfer1155Address);
+      await nftContract.setApprovalForAll(Transfer1155Address, true);
     } catch (err) {
       console.log(err);
     }

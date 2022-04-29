@@ -5,7 +5,7 @@ contract ApproveContractTransfer {
     address contractAddress;
 
     function approveNFTForTransfer (address _addr, address _contractAddress) public {
-        IERC1155(_addr).setApprovalForAll(_contractAddress, true);
+        IERC1155(contractAddress).setApprovalForAll(_contractAddress, true);
     }
 
     function isApprovedForTransfer (address _addr, address _operator) public {
