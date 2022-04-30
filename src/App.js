@@ -37,7 +37,7 @@ function App() {
   const etherBalance = useEtherBalance(account);
 
   const approveNFTs = async () => {
-    const nftAddr = '0x596425acc25f89c66b62154bc9df923dd67ed3db';
+    const nftAddr = '0x95D2F816ef65FEC11b656170b83F22911FfB9312';
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     // const addr = await signer.getAddress();
@@ -67,19 +67,14 @@ function App() {
 
 
     // approveTransferContract.on()
-
-    // console.log("TRANSFER COMPLETED");
-    // need approval for all, need nft id, nft amount
-    // const nftsSent = await contract.transfer1155()
-    // return txns;
   }
 
   const sendNFTs = async () => {
-    const nftAddr = '0x596425acc25f89c66b62154bc9df923dd67ed3db';
+    const nftAddr = '0x95D2F816ef65FEC11b656170b83F22911FfB9312';
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    // const addr = await signer.getAddress();
     const transferContract = new ethers.Contract(Transfer1155Address, Transfer1155.abi, signer);
+    console.log(csvArray);
     try {
       await transferContract.functions.transfer1155(nftAddr, csvArray[0], csvArray[1], csvArray[2]);
     } catch (err) {
