@@ -7,9 +7,9 @@ import Transfer1155 from './artifacts/contracts/Transfer1155.sol/Transfer1155.js
 import ApproveContractTransfer from './artifacts/contracts/Approve1155Transfer.sol/ApproveContractTransfer.json';
 import MintERC1155 from './artifacts/contracts/MintERC1155.sol/AirlineTokens.json';
 
-const ApproveNFTForTransferAddress = "0x25309138bf0177bd85c109D823cf2C0Df7D484a6";
+const ApproveNFTForTransferAddress = "0x58725C4BA345d7B93ab1709f6260541820D88928";
 const MintERC1155Address = "0xCB2890db00F2Ca167278341A48AF41FC40bB961E";
-const Transfer1155Address = "0x643995EFFDfd3ADc6E3bf09920B6AAa9C29ec6fb";
+const Transfer1155Address = "0xDD6a1922854e83515d015C4ac4CD85C8ae5A6F37";
 
 // const polygonAddress = "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619";
 
