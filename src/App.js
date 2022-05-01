@@ -19,7 +19,6 @@ function App() {
 
   const processCSV = (str, delim=',') => {
     const walletAddrs = [];
-    const nftAddrs = [];
     const tokenIds = [];
     const nftAmounts = [];
     const rows = str.slice(str.indexOf('\n')+1).split('\n');
@@ -29,7 +28,12 @@ function App() {
       tokenIds.push(values[1]);
       nftAmounts.push(1)
     }
-  csvArray.push(walletAddrs, tokenIds, nftAmounts)
+  setCsvArray((csvArray) => [
+    ...csvArray,
+    walletAddrs,
+    tokenIds,
+    nftAmounts
+  ]);
 }
 
   // activate browser wallet
@@ -56,16 +60,6 @@ function App() {
     } catch (err) {
       console.log(err);
     }
-
-    // try {
-    //   await approveTransferContract.functions.isApprovedForTransfer(nftAddr, Transfer1155Address);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-
-
-
-
     // approveTransferContract.on()
   }
 
@@ -74,7 +68,6 @@ function App() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const transferContract = new ethers.Contract(Transfer1155Address, Transfer1155.abi, signer);
-    console.log(csvArray);
     try {
       await transferContract.functions.transfer1155(nftAddr, csvArray[0], csvArray[1], csvArray[2]);
     } catch (err) {
