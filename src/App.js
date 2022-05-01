@@ -7,9 +7,9 @@ import Transfer1155 from './artifacts/contracts/Transfer1155.sol/Transfer1155.js
 import ApproveContractTransfer from './artifacts/contracts/Approve1155Transfer.sol/ApproveContractTransfer.json';
 import MintERC1155 from './artifacts/contracts/MintERC1155.sol/AirlineTokens.json';
 
-const ApproveNFTForTransferAddress = "0xe3b6135599d2F26846d8296Fa488b48C719c98b9";
-const MintERC1155Address = "0x95D2F816ef65FEC11b656170b83F22911FfB9312";
-const Transfer1155Address = "0xD7c5C128245dD0EEc0E78691b04307f8211C9036";
+const ApproveNFTForTransferAddress = "0x25309138bf0177bd85c109D823cf2C0Df7D484a6";
+const MintERC1155Address = "0xCB2890db00F2Ca167278341A48AF41FC40bB961E";
+const Transfer1155Address = "0x643995EFFDfd3ADc6E3bf09920B6AAa9C29ec6fb";
 
 // const polygonAddress = "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619";
 
@@ -37,7 +37,7 @@ function App() {
   const etherBalance = useEtherBalance(account);
 
   const approveNFTs = async () => {
-    const nftAddr = '0x95D2F816ef65FEC11b656170b83F22911FfB9312';
+    const nftAddr = '0xCB2890db00F2Ca167278341A48AF41FC40bB961E';
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     // const addr = await signer.getAddress();
@@ -70,7 +70,7 @@ function App() {
   }
 
   const sendNFTs = async () => {
-    const nftAddr = '0x95D2F816ef65FEC11b656170b83F22911FfB9312';
+    const nftAddr = '0xCB2890db00F2Ca167278341A48AF41FC40bB961E';
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const transferContract = new ethers.Contract(Transfer1155Address, Transfer1155.abi, signer);

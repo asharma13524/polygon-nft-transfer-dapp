@@ -19,19 +19,19 @@ async function main() {
   const ApproveContractTransfer = await hre.ethers.getContractFactory("ApproveContractTransfer");
   const approveContractTransfer = await ApproveContractTransfer.deploy();
 
-  // const MintERC1155 = await hre.ethers.getContractFactory("AirlineTokens");
-  // const mintERC1155 = await MintERC1155.deploy(acct);
+  const MintERC1155 = await hre.ethers.getContractFactory("AirlineTokens");
+  const mintERC1155 = await MintERC1155.deploy(acct);
 
   // We get the contract to deploy
   const Transfer1155 = await hre.ethers.getContractFactory("Transfer1155");
   const transfer1155 = await Transfer1155.deploy();
 
   await approveContractTransfer.deployed();
-  // await mintERC1155.deployed();
+  await mintERC1155.deployed();
   await transfer1155.deployed();
 
   console.log("ApproveContractTransfer deployed to: ", approveContractTransfer.address);
-  // console.log("MintERC1155 deployed to:", mintERC1155.address);
+  console.log("MintERC1155 deployed to:", mintERC1155.address);
   console.log("Transfer1155 deployed to:", transfer1155.address);
 }
 
