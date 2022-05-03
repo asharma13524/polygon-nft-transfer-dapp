@@ -11,7 +11,6 @@ const ApproveNFTForTransferAddress = "0x58725C4BA345d7B93ab1709f6260541820D88928
 const MintERC1155Address = "0xCB2890db00F2Ca167278341A48AF41FC40bB961E";
 const Transfer1155Address = "0xDD6a1922854e83515d015C4ac4CD85C8ae5A6F37";
 
-// const polygonAddress = "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619";
 
 function App() {
   const [csvFile, setCsvFile] = useState();
@@ -44,7 +43,6 @@ function App() {
     const nftAddr = '0xCB2890db00F2Ca167278341A48AF41FC40bB961E';
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    // const addr = await signer.getAddress();
     const nftContract = new ethers.Contract(nftAddr, MintERC1155.abi, signer);
     const transferContract = new ethers.Contract(Transfer1155Address, Transfer1155.abi, signer);
     const mintERC1155Contract = new ethers.Contract(MintERC1155Address, MintERC1155.abi, signer);
