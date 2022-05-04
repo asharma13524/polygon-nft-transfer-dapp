@@ -98,9 +98,7 @@ function App() {
           {etherBalance && <p>Balance: {formatEther(etherBalance)} </p>}
         </div>
       <div>
-        <form
-          id="csv-form"
-        >
+        <form id="csv-form">
           <label class="block mb-6">
             <input
               type='file'
@@ -109,8 +107,12 @@ function App() {
               onChange={(e) => {
                 setCsvFile(e.target.files[0])
               }}
+              className="
+                h-10
+                px-5
+                rounded-lg
+                "
             >
-
             </input>
             <br/>
             <button
@@ -118,10 +120,38 @@ function App() {
                 e.preventDefault()
                 if(csvFile)processAndSendNFTs()
               }}
+              className="
+                h-10
+                px-5
+                text-indigo-100
+                bg-violet-700
+                rounded-lg
+                transition-colors
+                duration-150
+                focus:shadow-outline
+                hover:bg-indigo-800"
             >
             Approve
             </button>
           </label>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                if(csvFile)sendNFTs()
+              }}
+              className="
+                h-10
+                px-5
+                text-indigo-100
+                bg-indigo-700
+                rounded-lg
+                transition-colors
+                duration-150
+                focus:shadow-outline
+                hover:bg-indigo-800"
+            >
+            Transfer NFTs
+            </button>
         </form>
       </div>
     </div>
