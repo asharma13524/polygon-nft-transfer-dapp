@@ -90,44 +90,82 @@ function App() {
 
   return (
     <div className="App">
-       <div>
         <div>
-          <button onClick={() => activateBrowserWallet()}>Connect</button>
+          <div>
+            <button onClick={() => activateBrowserWallet()}>Connect</button>
+          </div>
+          {account && <p>Account: {account}</p>}
+          {etherBalance && <p>Balance: {formatEther(etherBalance)} </p>}
         </div>
-        {account && <p>Account: {account}</p>}
-        {etherBalance && <p>Balance: {formatEther(etherBalance)} </p>}
-        {/* {polygonBalance && <p>Balance: {formatEther(polygonBalance)}</p>} */}
+      <div>
+        <form
+          id="csv-form"
+        >
+          <label class="block mb-6">
+            <input
+              type='file'
+              accept='.csv'
+              id='csvFile'
+              onChange={(e) => {
+                setCsvFile(e.target.files[0])
+              }}
+            >
 
+            </input>
+            <br/>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                if(csvFile)processAndSendNFTs()
+              }}
+            >
+            Approve
+            </button>
+          </label>
+        </form>
       </div>
-      <form id='csv-form'>
-        <input
-          type='file'
-          accept='.csv'
-          id='csvFile'
-          onChange={(e) => {
-            setCsvFile(e.target.files[0])
-          }}
-        >
-        </input>
-        <br/>
-        <button
-          onClick={(e) => {
-            e.preventDefault()
-            if(csvFile)processAndSendNFTs()
-          }}
-        >
-        Submit
-        </button>
-        <button
-          onClick={(e) => {
-            e.preventDefault()
-            if(csvFile)sendNFTs()
-          }}
-        >
-        Submit 2
-        </button>
-      </form>
     </div>
+
+
+    // <div className="App">
+      //  <div>
+      //   <div>
+      //     <button onClick={() => activateBrowserWallet()}>Connect</button>
+      //   </div>
+      //   {account && <p>Account: {account}</p>}
+      //   {etherBalance && <p>Balance: {formatEther(etherBalance)} </p>}
+      //   {/* {polygonBalance && <p>Balance: {formatEther(polygonBalance)}</p>} */}
+
+    //   </div>
+    //   <form id='csv-form'>
+        // <input
+        //   type='file'
+        //   accept='.csv'
+        //   id='csvFile'
+        //   onChange={(e) => {
+        //     setCsvFile(e.target.files[0])
+        //   }}
+        // >
+    //     </input>
+    //     <br/>
+        // <button
+        //   onClick={(e) => {
+        //     e.preventDefault()
+        //     if(csvFile)processAndSendNFTs()
+        //   }}
+        // >
+    //     Submit
+    //     </button>
+    //     <button
+    //       onClick={(e) => {
+    //         e.preventDefault()
+    //         if(csvFile)sendNFTs()
+    //       }}
+    //     >
+    //     Submit 2
+    //     </button>
+    //   </form>
+    // </div>
   );
 }
 
