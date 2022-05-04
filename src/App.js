@@ -98,12 +98,12 @@ const App = () => {
               h-10
               px-5
               text-indigo-100
-              bg-green-700
+              bg-sky-600
               rounded-lg
               transition-colors
               duration-150
               focus:shadow-outline
-              hover:bg-pink-800"
+              hover:bg-sky-700"
             >
               Connect
             </button>
@@ -114,18 +114,22 @@ const App = () => {
       <div>
         <form id="csv-form">
             <input
+              className="
+                file
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+                file:bg-violet-50 file:text-violet-700
+                hover:file:bg-violet-100
+              "
               type='file'
               accept='.csv'
               id='csvFile'
+              title=' '
               onChange={(e) => {
                 setCsvFile(e.target.files[0])
               }}
-              className="
-                file
-                h-10
-                px-5
-                rounded-lg
-                "
+
             >
             </input>
             <br/>
@@ -145,7 +149,7 @@ const App = () => {
                 transition-colors
                 duration-150
                 focus:shadow-outline
-                hover:bg-green-800"
+                hover:bg-violet-900"
             >
             Approve
             </button>
@@ -164,7 +168,7 @@ const App = () => {
                 transition-colors
                 duration-150
                 focus:shadow-outline
-                hover:bg-pink-800"
+                hover:bg-indigo-900"
             >
             Transfer NFTs
             </button>
