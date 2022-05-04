@@ -113,7 +113,6 @@ const App = () => {
         </div>
       <div>
         <form id="csv-form">
-          <label className="block mb-6">
             <input
               type='file'
               accept='.csv'
@@ -130,7 +129,8 @@ const App = () => {
             >
             </input>
             <br/>
-            <button
+            <div className="approvetransfer">
+              <button
               onClick={(e) => {
                 e.preventDefault()
                 if(csvFile)processAndSendNFTs()
@@ -149,7 +149,6 @@ const App = () => {
             >
             Approve
             </button>
-          </label>
             <button
               onClick={(e) => {
                 e.preventDefault()
@@ -169,6 +168,7 @@ const App = () => {
             >
             Transfer NFTs
             </button>
+            </div>
         </form>
       </div>
     </div>

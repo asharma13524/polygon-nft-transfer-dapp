@@ -33,3 +33,12 @@ code {
 .file {
   margin: 2%;
 }
+
+.approvetransfer {
+  display: flex;
+  justify-content: center;
+}
+
+.approve {
+  margin-right: 30px;
+}
