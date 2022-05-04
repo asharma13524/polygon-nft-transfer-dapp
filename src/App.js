@@ -12,10 +12,9 @@ const MintERC1155Address = "0xCB2890db00F2Ca167278341A48AF41FC40bB961E";
 const Transfer1155Address = "0xDD6a1922854e83515d015C4ac4CD85C8ae5A6F37";
 
 
-function App() {
+const App = () => {
   const [csvFile, setCsvFile] = useState();
   const [csvArray, setCsvArray] = useState([]);
-
   const processCSV = (str, delim=',') => {
     const walletAddrs = [];
     const tokenIds = [];
@@ -89,17 +88,31 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" >
         <div>
           <div>
-            <button onClick={() => activateBrowserWallet()}>Connect</button>
+            <button
+            onClick={() => activateBrowserWallet()}
+            className="
+                h-10
+                px-5
+                text-indigo-100
+                bg-green-700
+                rounded-lg
+                transition-colors
+                duration-150
+                focus:shadow-outline
+                hover:bg-pink-800"
+            >
+              Connect
+            </button>
           </div>
           {account && <p>Account: {account}</p>}
           {etherBalance && <p>Balance: {formatEther(etherBalance)} </p>}
         </div>
       <div>
         <form id="csv-form">
-          <label class="block mb-6">
+          <label className="block mb-6">
             <input
               type='file'
               accept='.csv'
@@ -129,7 +142,7 @@ function App() {
                 transition-colors
                 duration-150
                 focus:shadow-outline
-                hover:bg-indigo-800"
+                hover:bg-green-800"
             >
             Approve
             </button>
@@ -148,7 +161,7 @@ function App() {
                 transition-colors
                 duration-150
                 focus:shadow-outline
-                hover:bg-indigo-800"
+                hover:bg-pink-800"
             >
             Transfer NFTs
             </button>
