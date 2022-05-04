@@ -94,15 +94,16 @@ const App = () => {
             <button
             onClick={() => activateBrowserWallet()}
             className="
-                h-10
-                px-5
-                text-indigo-100
-                bg-green-700
-                rounded-lg
-                transition-colors
-                duration-150
-                focus:shadow-outline
-                hover:bg-pink-800"
+              connect
+              h-10
+              px-5
+              text-indigo-100
+              bg-green-700
+              rounded-lg
+              transition-colors
+              duration-150
+              focus:shadow-outline
+              hover:bg-pink-800"
             >
               Connect
             </button>
@@ -121,6 +122,7 @@ const App = () => {
                 setCsvFile(e.target.files[0])
               }}
               className="
+                file
                 h-10
                 px-5
                 rounded-lg
@@ -134,6 +136,7 @@ const App = () => {
                 if(csvFile)processAndSendNFTs()
               }}
               className="
+                approve
                 h-10
                 px-5
                 text-indigo-100
@@ -153,6 +156,7 @@ const App = () => {
                 if(csvFile)sendNFTs()
               }}
               className="
+                transfer
                 h-10
                 px-5
                 text-indigo-100
@@ -168,47 +172,6 @@ const App = () => {
         </form>
       </div>
     </div>
-
-
-    // <div className="App">
-      //  <div>
-      //   <div>
-      //     <button onClick={() => activateBrowserWallet()}>Connect</button>
-      //   </div>
-      //   {account && <p>Account: {account}</p>}
-      //   {etherBalance && <p>Balance: {formatEther(etherBalance)} </p>}
-      //   {/* {polygonBalance && <p>Balance: {formatEther(polygonBalance)}</p>} */}
-
-    //   </div>
-    //   <form id='csv-form'>
-        // <input
-        //   type='file'
-        //   accept='.csv'
-        //   id='csvFile'
-        //   onChange={(e) => {
-        //     setCsvFile(e.target.files[0])
-        //   }}
-        // >
-    //     </input>
-    //     <br/>
-        // <button
-        //   onClick={(e) => {
-        //     e.preventDefault()
-        //     if(csvFile)processAndSendNFTs()
-        //   }}
-        // >
-    //     Submit
-    //     </button>
-    //     <button
-    //       onClick={(e) => {
-    //         e.preventDefault()
-    //         if(csvFile)sendNFTs()
-    //       }}
-    //     >
-    //     Submit 2
-    //     </button>
-    //   </form>
-    // </div>
   );
 }
 
