@@ -45,7 +45,6 @@ const App = () => {
     const nftContract = new ethers.Contract(nftAddr, MintERC1155.abi, signer);
     const transferContract = new ethers.Contract(Transfer1155Address, Transfer1155.abi, signer);
     const mintERC1155Contract = new ethers.Contract(MintERC1155Address, MintERC1155.abi, signer);
-    const approveTransferContract = new ethers.Contract(ApproveNFTForTransferAddress, ApproveContractTransfer.abi, signer)
     // Mint NFT logic
     // try {
     //   await mintERC1155Contract.functions.addNewAirline(30);
