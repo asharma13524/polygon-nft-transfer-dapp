@@ -4,10 +4,8 @@ import { ethers } from "ethers";
 import { useEtherBalance, useEthers, useTokenBalance } from '@usedapp/core';
 import { formatEther } from '@ethersproject/units';
 import Transfer1155 from './artifacts/contracts/Transfer1155.sol/Transfer1155.json';
-import ApproveContractTransfer from './artifacts/contracts/Approve1155Transfer.sol/ApproveContractTransfer.json';
 import MintERC1155 from './artifacts/contracts/MintERC1155.sol/AirlineTokens.json';
 
-const ApproveNFTForTransferAddress = "0x58725C4BA345d7B93ab1709f6260541820D88928";
 const MintERC1155Address = "0xCB2890db00F2Ca167278341A48AF41FC40bB961E";
 const Transfer1155Address = "0xDD6a1922854e83515d015C4ac4CD85C8ae5A6F37";
 
