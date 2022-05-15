@@ -41,20 +41,18 @@ const App = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const nftContract = new ethers.Contract(nftAddr, MintERC1155.abi, signer);
-    const transferContract = new ethers.Contract(Transfer1155Address, Transfer1155.abi, signer);
     const mintERC1155Contract = new ethers.Contract(MintERC1155Address, MintERC1155.abi, signer);
     // Mint NFT logic
-    // try {
-    //   await mintERC1155Contract.functions.addNewAirline(30);
-    // } catch (err) {
-    //   console.log(err);
-    // }
     try {
-      await nftContract.setApprovalForAll(Transfer1155Address, true);
+      await mintERC1155Contract.functions.addNewAirline(30);
     } catch (err) {
       console.log(err);
     }
-    // approveTransferContract.on()
+    // try {
+    //   await nftContract.setApprovalForAll(Transfer1155Address, true);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   }
 
   const sendNFTs = async () => {
@@ -86,6 +84,7 @@ const App = () => {
 
   return (
     <div className="App" >
+      <h1 className="title">NFT ERC1155 Airdrop Helper</h1>
         <div>
           <div>
             <button
@@ -105,8 +104,6 @@ const App = () => {
               Connect
             </button>
           </div>
-          {account && <p>Account: {account}</p>}
-          {etherBalance && <p>Balance: {formatEther(etherBalance)} </p>}
         </div>
       <div>
         <form id="csv-form">
@@ -134,7 +131,11 @@ const App = () => {
               <button
               onClick={(e) => {
                 e.preventDefault()
-                if(csvFile)processAndSendNFTs()
+                if(csvFile){
+                  processAndSendNFTs()
+                } else {
+                  console.log("Please upload a csv file!") // TODO: Push errors to frontend
+                }
               }}
               className="
                 approve
@@ -153,7 +154,11 @@ const App = () => {
             <button
               onClick={(e) => {
                 e.preventDefault()
-                if(csvFile)sendNFTs()
+                if(csvFile){
+                  sendNFTs()
+                } else {
+                  console.log("Please upload a csv file!"); // TODO: Push errors to frontend
+                }
               }}
               className="
                 transfer
