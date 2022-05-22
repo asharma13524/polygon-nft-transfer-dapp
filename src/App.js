@@ -41,10 +41,8 @@ const App = () => {
 
   const approveNFTs = async () => {
     // TODO: How to handle multiple editions? One at a time?
-    // const nftContractAddrs = '0xCB2890db00F2Ca167278341A48AF41FC40bB961E';
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    // const nftContract = new ethers.Contract(nftAddr, MintERC1155.abi, signer);
     const mintERC1155Contract = new ethers.Contract(MintERC1155Address, MintERC1155.abi, signer);
     // Mint NFT logic
     // try {
@@ -74,7 +72,8 @@ const App = () => {
     }
   }
 
-  const processAndSendNFTs = async () => {
+  const processCsvFile = async (csvFile) => {
+    setCsvFile(csvFile)
     const file = csvFile;
     const reader = new FileReader();
 
@@ -83,10 +82,6 @@ const App = () => {
       await processCSV(text);
     };
     await reader.readAsText(file);
-
-    if(typeof window.ethereum !== 'undefined') {
-      await approveNFTs();
-    }
   }
 
   return (
@@ -128,9 +123,8 @@ const App = () => {
               id='csvFile'
               title=' '
               onChange={(e) => {
-                setCsvFile(e.target.files[0])
+                processCsvFile(e.target.files[0])
               }}
-
             >
             </input>
             <br/>
@@ -139,7 +133,7 @@ const App = () => {
               onClick={(e) => {
                 e.preventDefault()
                 if(csvFile){
-                  processAndSendNFTs()
+                  approveNFTs()
                 } else {
                   console.log("Please upload a csv file!") // TODO: Push errors to frontend
                 }
