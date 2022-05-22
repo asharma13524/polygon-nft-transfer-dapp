@@ -17,12 +17,6 @@ contract Transfer1155 {
         // for(uint256 i = 0; i < _recipients.length; i++) {
         //     total += _values[i];
         // }
-        // check if user has enough nfts
-        // require(ERC1155(_addr).safeTransferFrom(msg.sender, address(this), total, ""));
-
-        // loop through 1155s and send amount to each address
-        // code assumes person is sending different erc1155s
-        // frontend should handle logic to grab token id
         for(uint i = 0; i < _recipients.length; i++) {
             token = IERC1155(_addr);
             token.safeTransferFrom(msg.sender, _recipients[i], _tokenIds[i], _values[i], "");

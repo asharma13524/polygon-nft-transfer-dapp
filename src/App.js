@@ -15,18 +15,21 @@ const App = () => {
   const [csvArray, setCsvArray] = useState([]);
   const processCSV = (str, delim=',') => {
     const walletAddrs = [];
+    const nftContractAddrs = [];
     const tokenIds = [];
     const nftAmounts = [];
     const rows = str.slice(str.indexOf('\n')+1).split('\n');
     for(let row of rows){
       const values = row.split(delim);
       walletAddrs.push(values[0]);
-      tokenIds.push(values[1]);
-      nftAmounts.push(1)
+      nftContractAddrs.push(values[1]);
+      tokenIds.push(values[2]);
+      nftAmounts.push(values[3]);
     }
   setCsvArray((csvArray) => [
     ...csvArray,
     walletAddrs,
+    nftContractAddrs,
     tokenIds,
     nftAmounts
   ]);
@@ -37,10 +40,11 @@ const App = () => {
   const etherBalance = useEtherBalance(account);
 
   const approveNFTs = async () => {
-    const nftAddr = '0xCB2890db00F2Ca167278341A48AF41FC40bB961E';
+    // TODO: How to handle multiple editions? One at a time?
+    // const nftContractAddrs = '0xCB2890db00F2Ca167278341A48AF41FC40bB961E';
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    const nftContract = new ethers.Contract(nftAddr, MintERC1155.abi, signer);
+    // const nftContract = new ethers.Contract(nftAddr, MintERC1155.abi, signer);
     const mintERC1155Contract = new ethers.Contract(MintERC1155Address, MintERC1155.abi, signer);
     // Mint NFT logic
     // try {
@@ -48,20 +52,24 @@ const App = () => {
     // } catch (err) {
     //   console.log(err);
     // }
+    console.log(csvArray[0], csvArray[1], csvArray[2], csvArray[3]);
     try {
-      await nftContract.setApprovalForAll(Transfer1155Address, true);
+      for(let nftContract of csvArray[1]) {
+        await nftContract.setApprovalForAll(Transfer1155Address, true);
+      }
     } catch (err) {
       console.log(err);
     }
   }
 
   const sendNFTs = async () => {
-    const nftAddr = '0xCB2890db00F2Ca167278341A48AF41FC40bB961E';
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const transferContract = new ethers.Contract(Transfer1155Address, Transfer1155.abi, signer);
     try {
-      await transferContract.functions.transfer1155(nftAddr, csvArray[0], csvArray[1], csvArray[2]);
+      for(let nftContractAddr of csvArray[1]) {
+        await transferContract.functions.transfer1155(nftContractAddr, csvArray[0], csvArray[1], csvArray[2]);
+      }
     } catch (err) {
       console.log(err);
     }
