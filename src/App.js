@@ -18,7 +18,7 @@ const App = () => {
     const nftContractAddrs = [];
     const tokenIds = [];
     const nftAmounts = [];
-    const rows = str.slice(str.indexOf('\n')+1).split('\n');
+    const rows = str.slice(str.indexOf('\n')+1).split(/\r?\n/);
     for(let row of rows){
       const values = row.split(delim);
       walletAddrs.push(values[0]);
@@ -52,7 +52,6 @@ const App = () => {
     // } catch (err) {
     //   console.log(err);
     // }
-    console.log(csvArray[0], csvArray[1], csvArray[2], csvArray[3]);
     try {
       for(let nftContract of csvArray[1]) {
         await nftContract.setApprovalForAll(Transfer1155Address, true);
