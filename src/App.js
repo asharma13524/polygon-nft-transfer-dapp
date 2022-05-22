@@ -13,6 +13,11 @@ const Transfer1155Address = "0xDD6a1922854e83515d015C4ac4CD85C8ae5A6F37";
 const App = () => {
   const [csvFile, setCsvFile] = useState();
   const [csvArray, setCsvArray] = useState([]);
+  const questionList = [
+      {description: '1. Connect Wallet', key: 0},
+      {description: '2. Upload Csv File', key: 1},
+      {description: '3. Transfer NFTs :)', key: 2}
+    ];
   const processCSV = (str, delim=',') => {
     const walletAddrs = [];
     const nftContractAddrs = [];
@@ -87,6 +92,16 @@ const App = () => {
   return (
     <div className="App" >
       <h1 className="title">NFT ERC1155 Airdrop Helper</h1>
+        <div className="works">
+          <h1 className="How text-blue-600">How It Works: </h1>
+          <ol>
+            {questionList.map(question => {
+              return (
+                <li className="text-teal-600 decoration-4" key={question.key}>{question.description}</li>
+              );
+            })}
+          </ol>
+        </div>
         <div>
           <div>
             <button
