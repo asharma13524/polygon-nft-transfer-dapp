@@ -43,16 +43,16 @@ const App = () => {
     const nftContract = new ethers.Contract(nftAddr, MintERC1155.abi, signer);
     const mintERC1155Contract = new ethers.Contract(MintERC1155Address, MintERC1155.abi, signer);
     // Mint NFT logic
-    try {
-      await mintERC1155Contract.functions.addNewAirline(30);
-    } catch (err) {
-      console.log(err);
-    }
     // try {
-    //   await nftContract.setApprovalForAll(Transfer1155Address, true);
+    //   await mintERC1155Contract.functions.addNewAirline(30);
     // } catch (err) {
     //   console.log(err);
     // }
+    try {
+      await nftContract.setApprovalForAll(Transfer1155Address, true);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   const sendNFTs = async () => {

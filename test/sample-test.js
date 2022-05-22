@@ -9,8 +9,8 @@ describe("Greeter", function () {
     const transfer1155 = await Transfer1155.deploy();
     await transfer1155.deployed();
 
-    // TODO: Add logic to transfer 1155s
-    // expect(await greeter.greet()).to.equal("Hello, world!");
+    // TODO: Add logic to transfer 1155s and test
+    expect(await transfer1155.transfer1155()).to.equal("");
 
     // const setGreetingTx = await greeter.setGreeting("Hola, mundo!");
 
